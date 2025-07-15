@@ -1,0 +1,13 @@
+.container {
+  padding: 2rem;
+}
+
+.topPicks {
+  margin-bottom: 3rem;
+}
+
+.grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
