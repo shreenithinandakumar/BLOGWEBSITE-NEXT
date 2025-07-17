@@ -1,30 +1,37 @@
 'use client';
 import { useEffect, useState } from 'react';
-import blogSeed from '../data/blogData'; 
 import BlogCard from '../components/BlogCard';
 import Carousel from '../components/Carousel';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedBlogs = localStorage.getItem('blogs');
-    if (!storedBlogs) {
-      localStorage.setItem('blogs', JSON.stringify(blogSeed));
-      setBlogs(blogSeed);
-    } else {
+    async function fetchBlogs() {
       try {
-        setBlogs(JSON.parse(storedBlogs));
+        const res = await fetch('/api/blogs');
+        const json = await res.json();
+
+        if (res.ok) {
+          setBlogs(json.data);
+        } else {
+          console.error(json.message);
+        }
       } catch (err) {
-        console.error("Failed to parse blogs from localStorage", err);
-        setBlogs(blogSeed); // fallback
+        console.error("Failed to fetch blogs", err);
+      } finally {
+        setLoading(false);
       }
     }
+
+    fetchBlogs();
   }, []);
 
   const topPicks = blogs.filter(blog => blog.topPick);
-  const otherBlogs = blogs;
+
+  if (loading) return <p>Loading blogs...</p>;
 
   return (
     <div className={styles.container}>
@@ -37,7 +44,7 @@ export default function Home() {
 
       <h2>All Blogs</h2>
       <div className={styles.grid}>
-        {otherBlogs.map((blog) => (
+        {blogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} />
         ))}
       </div>

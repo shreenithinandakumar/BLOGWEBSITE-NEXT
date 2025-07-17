@@ -1,26 +1,42 @@
 'use client';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Carousel from '../../../components/Carousel';
 import styles from '../../../styles/Blog.module.css';
 
 export default function BlogDetail() {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('blogs')) || [];
-    const found = stored.find((b) => b.id == id);
-    setBlog(found);
+    async function fetchBlog() {
+      try {
+        const res = await fetch(`/api/blogs/${id}`);
+        const json = await res.json();
+
+        if (res.ok) {
+          setBlog(json.data);
+        } else {
+          console.error(json.message);
+        }
+      } catch (err) {
+        console.error("Failed to fetch blog", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchBlog();
   }, [id]);
 
-  if (!blog) return <div>Blog not found.</div>;
+  if (loading) return <p>Loading blog...</p>;
+  if (!blog) return <p>Blog not found.</p>;
 
   return (
     <div className={styles.blog}>
       <h1>{blog.title}</h1>
       <p><i>By {blog.author}</i></p>
-      <img src={blog.images} alt={blog.title} className={styles.blogImage}/>
+      <img src={blog.images?.[0]} alt={blog.title} className={styles.blogImage} />
       <p>{blog.content}</p>
     </div>
   );
