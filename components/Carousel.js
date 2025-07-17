@@ -7,7 +7,8 @@ import styles from '../styles/Carousel.module.css';
 export default function Carousel({ blogs }) {
   const [index, setIndex] = useState(0);
   const router = useRouter();
-
+  console.log(blogs);
+  
   const prev = () => setIndex((index - 1 + blogs.length) % blogs.length);
   const next = () => setIndex((index + 1) % blogs.length);
 
@@ -25,7 +26,7 @@ export default function Carousel({ blogs }) {
     <div className={styles.carousel}>
       <button onClick={prev}>‹</button>
 
-      <div className={styles.slide} onClick={() => handleClick(blog.id)} style={{ cursor: 'pointer' }}>
+      <div className={styles.slide} onClick={() => handleClick(blog._id)} style={{ cursor: 'pointer' }}>
         <img src={blog.images[0]} alt={blog.title} />
         <h3>{blog.title}</h3>
       </div>

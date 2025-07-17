@@ -45,7 +45,7 @@ export default function Home() {
       <h2>All Blogs</h2>
       <div className={styles.grid}>
         {blogs.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
+          <BlogCard key={blog._id} blog={blog} />
         ))}
       </div>
     </div>

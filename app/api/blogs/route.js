@@ -1,7 +1,12 @@
-import blogs from '@/lib/blogs'
+// import blogs from '@/lib/blogs'
+import { connectDB } from "@/lib/dbConnect"
+import { BlogModel } from "@/models/blogModel"
 
 export let GET = async () => {
     try{
+        await connectDB();
+        let blogs = await BlogModel.find()
+        
         return Response.json({
             status: "success", 
             length: blogs.length,
@@ -20,23 +25,10 @@ export let GET = async () => {
 
 export let POST = async (req) => {
     try{
-        const blog = await req.json();
+        await connectDB();
+        const body = await req.json();
 
-        if(!blog.title || !blog.images || !blog.description || !blog.content || !blog.author || !blog.topPick) {
-            return Response.json({
-                status: "failed",
-                message: "All fields are required"
-            }, {status: 400})
-        }
-
-        const newBlog = {
-            id: blogs.length + 1,
-            ...blog,
-        }
-
-        blogs.push(newBlog);
-
-        // const newProduct =  await ProductModel.create(products);
+        const newBlog =  await BlogModel.create(body);
         return Response.json({
             status: "success",
             message: {

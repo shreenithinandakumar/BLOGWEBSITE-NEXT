@@ -4,20 +4,29 @@ import { useEffect, useState } from 'react';
 import styles from '../../../styles/Blog.module.css';
 
 export default function BlogDetail() {
-  const { id } = useParams();
+  
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const params = useParams();
+  const blogId = params.id;
+  
   useEffect(() => {
+    if (!blogId) return;
     async function fetchBlog() {
       try {
-        const res = await fetch(`/api/blogs/${id}`);
-        const json = await res.json();
+        const res = await fetch(`/api/blogs/${blogId}`);
+
+        if (!res.ok) {
+        console.error("Failed to fetch blog:", res.status);
+        return null; 
+      }
+
+        const data = await res.json();
 
         if (res.ok) {
-          setBlog(json.data);
+          setBlog(data.data);
         } else {
-          console.error(json.message);
+          console.error(data.message);
         }
       } catch (err) {
         console.error("Failed to fetch blog", err);
@@ -27,7 +36,7 @@ export default function BlogDetail() {
     }
 
     fetchBlog();
-  }, [id]);
+  }, [blogId]);
 
   if (loading) return <p>Loading blog...</p>;
   if (!blog) return <p>Blog not found.</p>;

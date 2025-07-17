@@ -8,7 +8,7 @@ export default function BlogCard({ blog }) {
       <img src={blog.images[0]} alt="blog" />
       <h3>{blog.title}</h3>
       <p>{blog.description}</p>
-      <Link href={`/blog/${blog.id}`}>Read More →</Link>
+      <Link href={`/blog/${blog._id}`}>Read More →</Link>
     </div>
   );
 }

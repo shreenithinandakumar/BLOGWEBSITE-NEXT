@@ -21,8 +21,9 @@ export default function Dashboard() {
   async function fetchBlogs() {
     try {
       const res = await fetch('/api/blogs');
-      const json = await res.json();
-      if (res.ok) setBlogs(json.data);
+      const data = await res.json();
+      
+      if (res.ok) setBlogs(data.data);
       else console.error(json.message);
     } catch (err) {
       console.error('Error fetching blogs', err);
@@ -39,7 +40,7 @@ export default function Dashboard() {
       const json = await res.json();
 
       if (res.ok) {
-        setBlogs(blogs.filter((b) => b.id !== id));
+        setBlogs(blogs.filter((b) => b._id !== id));
         alert('Blog deleted!');
       } else {
         alert(json.message || 'Delete failed');
@@ -56,11 +57,11 @@ export default function Dashboard() {
 
       <h2>Blogs</h2>
       {blogs.map((blog) => (
-        <div key={blog.id} className={styles.item}>
+        <div key={blog._id} className={styles.item}>
           <h3>{blog.title}</h3>
           <div className={styles.controls}>
-            <button className={`${styles.button} ${styles.edit}`} onClick={() => router.push(`/dashboard/edit/${blog.id}`)}>Edit</button>
-            <button className={`${styles.button} ${styles.delete}`} onClick={() => handleDelete(blog.id)}>Delete</button>
+            <button className={`${styles.button} ${styles.edit}`} onClick={() => router.push(`/dashboard/edit/${blog._id}`)}>Edit</button>
+            <button className={`${styles.button} ${styles.delete}`} onClick={() => handleDelete(blog._id)}>Delete</button>
           </div>
         </div>
       ))}
