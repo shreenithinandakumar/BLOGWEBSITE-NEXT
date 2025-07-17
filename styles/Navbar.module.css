@@ -1,14 +1,27 @@
-.nav {
+.navBar {
   display: flex;
   gap: 1rem;
-  background: #222;
+  background: #3d3c3c;
   padding: 1rem;
   color: white;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+  height: 50px;
+  font-size: 17px;
 }
-.nav a, .nav button {
+.navBar a, .navBar button {
   color: white;
   text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
+  font-size: 17px;
+}
+
+.leftBar, .rightBar {
+  display: flex;
+  gap: 20px;
+  font-size: 17px;
 }

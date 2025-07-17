@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import blogSeed from '../data/blogData'; // renamed to avoid confusion
+import blogSeed from '../data/blogData'; 
 import BlogCard from '../components/BlogCard';
 import Carousel from '../components/Carousel';
 import styles from '../styles/Home.module.css';
@@ -14,7 +14,12 @@ export default function Home() {
       localStorage.setItem('blogs', JSON.stringify(blogSeed));
       setBlogs(blogSeed);
     } else {
-      setBlogs(JSON.parse(storedBlogs));
+      try {
+        setBlogs(JSON.parse(storedBlogs));
+      } catch (err) {
+        console.error("Failed to parse blogs from localStorage", err);
+        setBlogs(blogSeed); // fallback
+      }
     }
   }, []);
 
@@ -26,7 +31,7 @@ export default function Home() {
       {topPicks.length > 0 && (
         <div className={styles.topPicks}>
           <h2>Top Picks</h2>
-          <Carousel images={topPicks.flatMap(blog => blog.images.slice(0, 1))} />
+          <Carousel blogs={topPicks} />
         </div>
       )}
 

@@ -17,6 +17,7 @@ export default function Login() {
 
     if (match) {
       localStorage.setItem('user', JSON.stringify(match));
+      window.dispatchEvent(new Event('userChange'));
       router.push(role === 'admin' ? '/dashboard' : '/');
     } else {
       alert('Invalid credentials');

@@ -25,10 +25,11 @@ export default function Dashboard() {
     const filtered = blogs.filter((b) => b.id !== id);
     setBlogs(filtered);
     localStorage.setItem('blogs', JSON.stringify(filtered));
+    alert('Blog deleted!');
   };
 
   const handleAdd = () => {
-    router.push('/dashboard/add'); // You can make this route if needed
+    router.push('/dashboard/addblog'); 
   };
 
   return (

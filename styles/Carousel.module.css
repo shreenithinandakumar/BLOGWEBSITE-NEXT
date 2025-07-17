@@ -18,3 +18,32 @@
   border: none;
   cursor: pointer;
 }
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.slide {
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.slide:hover {
+  transform: scale(1.02);
+}
+
+.slide img {
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.slide h2 {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  color: #333;
+}

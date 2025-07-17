@@ -1,0 +1,22 @@
+.footer {
+  background-color: #3d3c3c;
+  padding: 10px 0;
+  font-size: 14px;
+  text-align: center;
+  color: #f1eaea;
+  border-top: 1px solid #ddd;
+  margin-top: 40px;
+  /* position: sticky; */
+  left: 0;
+  bottom: 0;
+  width: 100%; 
+  z-index: 100;
+}
+
+/* .container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+} */
+
+

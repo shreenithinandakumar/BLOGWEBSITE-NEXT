@@ -1,5 +1,6 @@
 .container {
   padding: 2rem;
+  padding-left: 70px;
 }
 
 .topPicks {
@@ -8,6 +9,6 @@
 
 .grid {
   display: flex;
-  gap: 2rem;
+  gap: 80px;
   flex-wrap: wrap;
 }
