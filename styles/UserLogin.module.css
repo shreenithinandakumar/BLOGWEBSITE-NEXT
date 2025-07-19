@@ -1,0 +1,63 @@
+/* .userLogin {
+  text-align: center;
+}
+
+.loginBtn {
+  display: block;
+  margin: 1rem auto;
+  padding: 10px 20px;
+  background-color: #0070f3;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 200px;
+  transition: background-color 0.3s;
+}
+
+.loginBtn:hover {
+  background-color: #005bb5;
+} */
+
+.userLogin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 2.5rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 350px;
+}
+
+.buttonWrapper {
+  margin: 10px 0;
+}
+
+.oauthBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  color: #444;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 250px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.oauthBtn:hover {
+  background-color: #f7f7f7;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 20px;
+  height: 20px;
+}

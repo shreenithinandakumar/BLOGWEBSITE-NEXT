@@ -1,11 +1,15 @@
 'use client';
+import { useSession, signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react';
 import styles from '@/styles/UserProfile.module.css';
 import { useRouter } from 'next/navigation';
 
 export default function UserProfile() {
-  const router = useRouter();
+  // const router = useRouter();
   const [user, setUser] = useState(null);
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
@@ -13,32 +17,55 @@ export default function UserProfile() {
     profilePic: ''
   });
 
+  console.log(session, status );
+  
+  // useEffect(() => {
+  //   const storedUser = JSON.parse(localStorage.getItem('user'));
+  //   if (!storedUser) {
+  //     alert('Please login to view your profile');
+  //     router.push('/login');
+  //   } else {
+  //     // Ensure interest is always an array
+  //     const interestArray = Array.isArray(storedUser.interest)
+  //       ? storedUser.interest
+  //       : typeof storedUser.interest === 'string'
+  //       ? [storedUser.interest]
+  //       : [];
+
+  //     const userWithSafeInterest = {
+  //       ...storedUser,
+  //       interest: interestArray,
+  //     };
+
+  //     setUser(userWithSafeInterest);
+  //     setFormData({
+  //       username: userWithSafeInterest.username || '',
+  //       interest: userWithSafeInterest.interest,
+  //       profilePic: userWithSafeInterest.profilePic || '',
+  //     });
+  //   }
+  // }, []);
+
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (!storedUser) {
-      alert('Please login to view your profile');
-      router.push('/login');
-    } else {
-      // Ensure interest is always an array
-      const interestArray = Array.isArray(storedUser.interest)
-        ? storedUser.interest
-        : typeof storedUser.interest === 'string'
-        ? [storedUser.interest]
-        : [];
+    if (status === 'loading') return // wait until session loads
 
-      const userWithSafeInterest = {
-        ...storedUser,
-        interest: interestArray,
-      };
-
-      setUser(userWithSafeInterest);
-      setFormData({
-        username: userWithSafeInterest.username || '',
-        interest: userWithSafeInterest.interest,
-        profilePic: userWithSafeInterest.profilePic || '',
-      });
+    if (!session) {
+      alert('Please login to view your profile')
+      router.push('/login')
+      return
     }
-  }, []);
+
+    // Initialize from session user
+    const userFromSession = session.user
+     const userObj = {
+      username: userFromSession.name || '',
+      interest: [], // maybe load from DB in real app
+      profilePic: userFromSession.image || ''
+    }
+
+    setUser(userObj);
+    setFormData(userObj);
+  }, [session, status])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,8 +89,8 @@ export default function UserProfile() {
   };
 
   const handleSave = () => {
-    const updatedUser = { ...user, ...formData };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
+    const updatedUser = { ...formData };
+    // localStorage.setItem('user', JSON.stringify(updatedUser));
     setUser(updatedUser);
     setEditMode(false);
     alert('Profile updated!');

@@ -2,22 +2,27 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '../../styles/Dashboard.module.css';
+import Loading from '@/components/Loading';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    const u = JSON.parse(localStorage.getItem('user'));
-    if (!u || u.role !== 'admin') {
-      router.push('/');
-    } else {
-      setUser(u);
-      fetchBlogs();
-    }
-  }, []);
+  // useEffect(() => {
+  //   const u = JSON.parse(localStorage.getItem('user'));
+  //   if (!u || u.role !== 'admin') {
+  //     router.push('/');
+  //   } else {
+  //     setUser(u);
+  //     fetchBlogs();
+  //   }
+  // }, []);
 
+  useEffect(() => {
+    fetchBlogs()
+  }, []);
   async function fetchBlogs() {
     try {
       const res = await fetch('/api/blogs');
@@ -27,8 +32,12 @@ export default function Dashboard() {
       else console.error(json.message);
     } catch (err) {
       console.error('Error fetching blogs', err);
+    } finally {
+      setLoading(false)
     }
   }
+
+  if(loading) return <Loading /> 
 
   async function handleDelete(id) {
     if (!confirm('Are you sure you want to delete this blog?')) return;

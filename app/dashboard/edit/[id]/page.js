@@ -2,6 +2,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from '@/styles/Dashboard.module.css';
+import Loading from '@/components/Loading';
 
 export default function EditBlog() {
   const { id } = useParams();
@@ -51,22 +52,22 @@ export default function EditBlog() {
     }
   }
 
-  if (loading || !blog) return <div>Loading...</div>;
+  if (loading || !blog) return <Loading />
 
   return (
     <div className={styles.dashboard}>
-      <h2>Edit Blog</h2>
+      <h2 className={styles.h2}>Edit Blog</h2>
       <div className={styles.form}>
         <input className={styles.input} value={blog.title} onChange={(e) => setBlog({ ...blog, title: e.target.value })} />
         <textarea className={styles.textarea} value={blog.description} onChange={(e) => setBlog({ ...blog, description: e.target.value })} />
-        <textarea className={styles.textarea} value={blog.content} onChange={(e) => setBlog({ ...blog, content: e.target.value })} />
+        <textarea className={styles.contentTextarea} value={blog.content} onChange={(e) => setBlog({ ...blog, content: e.target.value })} />
 
         <label>
           <input type="checkbox" checked={blog.topPick} onChange={(e) => setBlog({ ...blog, topPick: e.target.checked })} />
           Top Pick
         </label>
 
-        <button className={styles.edit} onClick={handleSave}>Save Changes</button>
+        <button className={styles.editSaveBtn} onClick={handleSave}>Save Changes</button>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 .blog {
   padding: 2rem;
+  min-height: 80vh;
 }
 .blog h1 {
   font-size: 2rem;
@@ -17,4 +18,12 @@
   left: 35%;
   margin-top: 30px;
   margin-bottom: 30px;
+}
+
+.blogContent {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  padding: 1rem 1.5rem;
+  color: #333;
 }

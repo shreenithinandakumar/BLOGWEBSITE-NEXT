@@ -2,6 +2,7 @@
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from '../../../styles/Blog.module.css';
+import Loading from '@/components/Loading';
 
 export default function BlogDetail() {
   
@@ -38,7 +39,7 @@ export default function BlogDetail() {
     fetchBlog();
   }, [blogId]);
 
-  if (loading) return <p>Loading blog...</p>;
+  if (loading) return <Loading />
   if (!blog) return <p>Blog not found.</p>;
 
   return (
@@ -46,7 +47,7 @@ export default function BlogDetail() {
       <h1>{blog.title}</h1>
       <p><i>By {blog.author}</i></p>
       <img src={blog.images?.[0]} alt={blog.title} className={styles.blogImage} />
-      <p>{blog.content}</p>
+      <p className={styles.blogContent}>{blog.content}</p>
     </div>
   );
 }

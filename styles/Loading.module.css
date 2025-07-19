@@ -1,0 +1,10 @@
+.loadingContainer {
+  flex: 1;
+  min-height: calc(100vh - 180px); 
+  display: 'flex';
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #444;
+  padding: 20px;
+}

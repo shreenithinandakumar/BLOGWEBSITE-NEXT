@@ -40,3 +40,14 @@ a {
     color-scheme: dark;
   }
 }
+
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pageContent {
+  flex: 1; /* This pushes the footer down */
+  min-height: calc(100vh - 10px);
+}

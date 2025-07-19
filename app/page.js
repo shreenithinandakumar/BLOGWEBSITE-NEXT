@@ -3,10 +3,15 @@ import { useEffect, useState } from 'react';
 import BlogCard from '../components/BlogCard';
 import Carousel from '../components/Carousel';
 import styles from '../styles/Home.module.css';
+import Loading from '@/components/Loading';
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { data: session, status } = useSession(); // NextAuth session
+  const isLoggedIn = status === 'authenticated';
 
   useEffect(() => {
     async function fetchBlogs() {
@@ -31,11 +36,11 @@ export default function Home() {
 
   const topPicks = blogs.filter(blog => blog.topPick);
 
-  if (loading) return <p>Loading blogs...</p>;
+  if (loading) return <Loading />;
 
   return (
     <div className={styles.container}>
-      {topPicks.length > 0 && (
+      {isLoggedIn && topPicks.length > 0 && (
         <div className={styles.topPicks}>
           <h2>Top Picks</h2>
           <Carousel blogs={topPicks} />
