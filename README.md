@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📖 Blog Application
 
-## Getting Started
+A **full-stack blog platform** built with **Next.js (App Router)**, **MongoDB**, and **Mongoose**.  
+It includes **role-based authentication, blog management, and user profiles** with interests & profile pictures.  
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+### 👥 Authentication
+- User Signup & Login  
+- LocalStorage-based session handling  
+- Role-based access control (Admin vs Normal User)  
+
+### 📝 Blog Management
+- Create new blog posts  
+- Read blogs (list view + detail view)  
+- Update blog posts (admin only)  
+- Delete blogs with confirmation (admin only)  
+
+### 🧑 User Profile
+- Profile picture upload (Base64 storage)  
+- Edit username  
+- Select blog interests (Tech, AI/ML, Travel, Food, Design)  
+- Save & update profile data  
+
+### 📊 Admin Dashboard
+- View all blogs in one place  
+- Add, edit, and delete blogs  
+- Navigate to edit page for specific blogs  
+
+### 🎨 UI/UX
+- Clean & responsive layout with **CSS Modules**  
+- Styled buttons, inputs, and dashboard controls  
+- Alerts & confirmations for key actions  
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend**  
+- Next.js (React, App Router)  
+- React Hooks (`useState`, `useEffect`, `useRouter`)  
+- CSS Modules for styling  
+
+**Backend**  
+- Next.js API Routes (serverless backend)  
+- MongoDB with **Mongoose ODM**  
+
+**Database**  
+- MongoDB Atlas (cloud) / Local MongoDB  
+
+---
+
+## 📂 Project Structure
+
+```plaintext
+.
+├── app/
+│   ├── api/
+│   │   └── blogs/        # Blog API routes (CRUD)
+│   ├── blog/[id]/        # Dynamic route for blog details
+│   ├── dashboard/        # Admin dashboard
+│   └── profile/          # User profile page
+├── models/
+│   └── Blog.js           # Mongoose schema for Blog
+├── styles/
+│   └── *.module.css      # Component-level styles
+├── utils/
+│   └── connectDB.js      # MongoDB connection handler
+└── README.md
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔗 Deployment Link
+https://blogwebsitenext.vercel.app/
