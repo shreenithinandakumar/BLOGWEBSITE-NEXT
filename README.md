@@ -9,7 +9,7 @@ It includes **role-based authentication, blog management, and user profiles** wi
 
 ### 👥 Authentication
 - User Signup & Login  
-- LocalStorage-based session handling  
+- OAuth based authentication  
 - Role-based access control (Admin vs Normal User)  
 
 ### 📝 Blog Management
